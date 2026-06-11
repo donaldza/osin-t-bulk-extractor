@@ -1,0 +1,80 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: bulk_extractor
+      POSTGRES_USER: be_user
+      POSTGRES_PASSWORD: be_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U be_user -d bulk_extractor"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./api
+    environment:
+      DATABASE_URL: postgresql+asyncpg://be_user:be_password@postgres:5432/bulk_extractor
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: change-me-in-production
+      ENGINE_BINARY: /engine/bulk_extractor
+    volumes:
+      - ./api:/app
+      - scan_data:/scans
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  worker:
+    build:
+      context: ./api
+    environment:
+      DATABASE_URL: postgresql+psycopg2://be_user:be_password@postgres:5432/bulk_extractor
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: change-me-in-production
+      ENGINE_BINARY: /engine/bulk_extractor
+    volumes:
+      - ./api:/app
+      - scan_data:/scans
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A app.workers.celery_app worker --loglevel=info
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      VITE_API_URL: http://localhost:8000
+    command: npm run dev -- --host
+
+volumes:
+  postgres_data:
+  scan_data:
