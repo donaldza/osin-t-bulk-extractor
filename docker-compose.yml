@@ -67,13 +67,11 @@ services:
     build:
       context: ./frontend
     ports:
-      - "5173:5173"
+      - "4200:4200"
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    environment:
-      VITE_API_URL: http://localhost:8000
-    command: npm run dev -- --host
+    command: npx ng serve --host 0.0.0.0 --poll 2000
 
 volumes:
   postgres_data:

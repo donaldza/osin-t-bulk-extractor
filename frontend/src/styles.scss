@@ -1,0 +1,101 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  background: #080d14;
+  color: #c9d1d9;
+  font-size: 14px;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0d1117; }
+::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+
+/* Utility */
+.text-cyan  { color: #22d3ee; }
+.text-muted { color: #6b7c8f; }
+.text-dim   { color: #3d4f62; }
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  border: 0.5px solid;
+  &.queued  { background: #251e06; color: #fbbf24; border-color: #713f12; }
+  &.running { background: #0a1a2e; color: #60a5fa; border-color: #1e3a5f; }
+  &.complete{ background: #0a2516; color: #4ade80; border-color: #14532d; }
+  &.failed  { background: #1f0a0a; color: #f87171; border-color: #7f1d1d; }
+  &.active  { background: #0a2516; color: #4ade80; border-color: #14532d; }
+}
+
+.card {
+  background: #0d1117;
+  border: 0.5px solid #1e2d42;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-head {
+  padding: 10px 16px;
+  border-bottom: 0.5px solid #1e2d42;
+  font-size: 12px;
+  color: #8a9baf;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 7px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity .15s;
+  &:hover { opacity: .85; }
+  &:disabled { opacity: .4; cursor: not-allowed; }
+  &.btn-primary { background: #0e6f8e; color: #fff; }
+  &.btn-ghost   { background: transparent; color: #6b7c8f; border: 0.5px solid #1e2d42; }
+}
+
+.input {
+  width: 100%;
+  background: #0d1117;
+  border: 0.5px solid #1e2d42;
+  border-radius: 7px;
+  padding: 8px 12px;
+  color: #c9d1d9;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  &:focus { border-color: #22d3ee; }
+}
+
+.be-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  th {
+    padding: 8px 16px;
+    text-align: left;
+    color: #4b5c70;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  td {
+    padding: 7px 16px;
+    border-top: 0.5px solid #141d2a;
+    color: #8a9baf;
+  }
+  tr:hover td { background: rgba(255,255,255,.02); }
+}
