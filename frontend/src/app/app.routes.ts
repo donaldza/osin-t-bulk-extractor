@@ -12,6 +12,7 @@ export const routes: Routes = [
       { path: 'cases', loadComponent: () => import('./pages/cases/cases.component').then(m => m.CasesComponent) },
       { path: 'cases/:caseId', loadComponent: () => import('./pages/case-detail/case-detail.component').then(m => m.CaseDetailComponent) },
       { path: 'scans/:scanId', loadComponent: () => import('./pages/scan-detail/scan-detail.component').then(m => m.ScanDetailComponent) },
+      { path: 'instructions', loadComponent: () => import('./pages/instructions/instructions.component').then(m => m.InstructionsComponent) },
     ]
   },
   { path: '**', redirectTo: '' },

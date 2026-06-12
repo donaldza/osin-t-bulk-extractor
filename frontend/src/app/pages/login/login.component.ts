@@ -16,69 +16,49 @@ import { AuthService } from '../../services/auth.service';
           <p>Forensics Platform</p>
         </div>
 
-        <div class="mode-toggle">
-          <button [class.active]="mode()==='login'" (click)="mode.set('login')">Sign in</button>
-          <button [class.active]="mode()==='register'" (click)="mode.set('register')">Register</button>
-        </div>
-
         <form (ngSubmit)="submit()" #f="ngForm">
           <div class="field">
-            <label>Email</label>
-            <input class="input" type="email" [(ngModel)]="email" name="email" required />
-          </div>
-          <div class="field">
-            <label>Password</label>
-            <input class="input" type="password" [(ngModel)]="password" name="password" required />
+            <label>User</label>
+            <input class="input" type="text" [(ngModel)]="username" name="username" autocomplete="username" required />
           </div>
           @if (error()) {
             <p class="error">{{ error() }}</p>
           }
           <button class="btn btn-primary submit-btn" type="submit" [disabled]="loading()">
-            {{ loading() ? 'Please wait…' : mode() === 'login' ? 'Sign in' : 'Create account' }}
+            {{ loading() ? 'Please wait…' : 'Sign in' }}
           </button>
+          <p class="hint">Enter User to continue.</p>
         </form>
       </div>
     </div>
   `,
   styles: [`
-    .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #080d14; }
-    .login-box { width: 340px; background: #0d1117; border: 0.5px solid #1e2d42; border-radius: 12px; padding: 28px; }
+    .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: transparent; }
+    .login-box { width: 340px; background: var(--panel-strong); border: 1px solid var(--border); border-radius: 12px; padding: 28px; box-shadow: var(--shadow); }
     .login-header { text-align: center; margin-bottom: 22px; }
     .login-icon { font-size: 28px; margin-bottom: 8px; }
-    h1 { color: #c9d1d9; font-size: 16px; font-weight: 500; }
-    p { color: #3d4f62; font-size: 11px; margin-top: 3px; }
-    .mode-toggle { display: flex; background: #141d2a; border-radius: 8px; padding: 3px; margin-bottom: 18px; gap: 3px; }
-    .mode-toggle button { flex: 1; padding: 6px; border: none; border-radius: 6px; font-size: 12px; font-family: inherit; cursor: pointer; background: transparent; color: #6b7c8f; &.active { background: #1e2d42; color: #c9d1d9; } }
-    .field { margin-bottom: 14px; label { display: block; font-size: 11px; color: #6b7c8f; margin-bottom: 5px; } }
-    .error { color: #f87171; font-size: 11px; margin-bottom: 10px; }
+    h1 { color: var(--text); font-size: 16px; font-weight: 500; }
+    p { color: var(--muted); font-size: 11px; margin-top: 3px; }
+    .field { margin-bottom: 14px; label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 5px; } }
+    .error { color: var(--danger); font-size: 11px; margin-bottom: 10px; }
     .submit-btn { width: 100%; justify-content: center; padding: 9px; font-size: 13px; }
+    .hint { margin-top: 12px; text-align: center; color: var(--muted); }
   `]
 })
 export class LoginComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
 
-  mode = signal<'login' | 'register'>('login');
-  email = '';
-  password = '';
+  username = 'User';
   error = signal('');
   loading = signal(false);
 
   submit() {
     this.error.set('');
     this.loading.set(true);
-    const doLogin = () => this.auth.login(this.email, this.password).subscribe({
+    this.auth.login(this.username).subscribe({
       next: () => this.router.navigate(['/']),
-      error: () => { this.error.set('Invalid credentials.'); this.loading.set(false); }
+      error: () => { this.error.set('Enter User to sign in.'); this.loading.set(false); }
     });
-
-    if (this.mode() === 'register') {
-      this.auth.register(this.email, this.password).subscribe({
-        next: () => doLogin(),
-        error: () => { this.error.set('Registration failed — email may already be in use.'); this.loading.set(false); }
-      });
-    } else {
-      doLogin();
-    }
   }
 }

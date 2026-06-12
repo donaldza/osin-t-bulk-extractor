@@ -1,4 +1,4 @@
-export interface User { id: number; email: string; role: string; }
+export interface User { id: number; username: string; role: string; }
 export interface Case { id: number; name: string; description?: string; status: string; created_by: number; created_at: string; }
 export interface Scan {
   id: number; case_id: number; image_path: string; image_hash?: string;

@@ -14,9 +14,9 @@ import { Scan } from '../../models/models';
 
     <div class="stats-grid">
       <div class="stat-card"><div class="stat-label">Cases</div><div class="stat-val cyan">{{ cases() }}</div></div>
-      <div class="stat-card"><div class="stat-label">Running</div><div class="stat-val" style="color:#60a5fa">{{ running() }}</div></div>
-      <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-val" style="color:#4ade80">{{ completed() }}</div></div>
-      <div class="stat-card"><div class="stat-label">Failed</div><div class="stat-val" style="color:#f87171">{{ failed() }}</div></div>
+      <div class="stat-card"><div class="stat-label">Running</div><div class="stat-val" style="color:var(--accent-2)">{{ running() }}</div></div>
+      <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-val" style="color:var(--success)">{{ completed() }}</div></div>
+      <div class="stat-card"><div class="stat-label">Failed</div><div class="stat-val" style="color:var(--danger)">{{ failed() }}</div></div>
     </div>
 
     <div class="card">
@@ -29,7 +29,7 @@ import { Scan } from '../../models/models';
           <tbody>
             @for (scan of recentScans(); track scan.id) {
               <tr>
-                <td style="color:#c9d1d9">{{ scan.image_path.split('/').pop() }}</td>
+                <td style="color:var(--text)">{{ scan.image_path.split('/').pop() }}</td>
                 <td><span class="badge {{ scan.status }}">{{ scan.status }}</span></td>
                 <td>{{ scan.total_bytes ? (scan.total_bytes / 1e6).toFixed(0) + ' MB' : '—' }}</td>
                 <td>{{ scan.elapsed_seconds ? scan.elapsed_seconds.toFixed(1) + 's' : '—' }}</td>
@@ -42,12 +42,12 @@ import { Scan } from '../../models/models';
     </div>
   `,
   styles: [`
-    .page-title { font-size: 16px; font-weight: 500; color: #c9d1d9; margin-bottom: 20px; }
+    .page-title { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 20px; }
     .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-    .stat-card { background: #0d1117; border: 0.5px solid #1e2d42; border-radius: 9px; padding: 14px 16px; }
-    .stat-label { font-size: 10px; color: #4b5c70; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+    .stat-card { background: var(--panel); border: 1px solid var(--border); border-radius: 9px; padding: 14px 16px; }
+    .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
     .stat-val { font-size: 22px; font-weight: 500; }
-    .empty { padding: 16px; color: #6b7c8f; font-size: 12px; }
+    .empty { padding: 16px; color: var(--muted); font-size: 12px; }
   `]
 })
 export class DashboardComponent implements OnInit {

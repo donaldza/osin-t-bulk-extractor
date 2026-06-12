@@ -48,11 +48,11 @@ import { Case, Scan } from '../../models/models';
           <tbody>
             @for (scan of scans(); track scan.id) {
               <tr>
-                <td style="color:#c9d1d9; font-size:11px; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ scan.image_path }}</td>
+                <td style="color:var(--text); font-size:11px; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ scan.image_path }}</td>
                 <td><span class="badge {{ scan.status }}">{{ scan.status }}</span></td>
                 <td>{{ scan.total_bytes ? (scan.total_bytes / 1e6).toFixed(0) + ' MB' : '—' }}</td>
                 <td>{{ scan.elapsed_seconds ? scan.elapsed_seconds.toFixed(1) + 's' : '—' }}</td>
-                <td style="font-size:11px; color:#4b5c70">{{ fmtDate(scan.started_at) }}</td>
+                <td style="font-size:11px; color:var(--muted)">{{ fmtDate(scan.started_at) }}</td>
                 <td><a [routerLink]="['/scans', scan.id]" class="text-cyan">View</a></td>
               </tr>
             }
@@ -62,15 +62,15 @@ import { Case, Scan } from '../../models/models';
     </div>
   `,
   styles: [`
-    .back-link { font-size: 12px; color: #4b5c70; display: inline-block; margin-bottom: 6px; &:hover { color: #c9d1d9; } }
+    .back-link { font-size: 12px; color: var(--muted); display: inline-block; margin-bottom: 6px; &:hover { color: var(--text); } }
     .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-    .page-title { font-size: 16px; font-weight: 500; color: #c9d1d9; }
-    .case-desc { color: #4b5c70; font-size: 12px; margin-bottom: 18px; }
+    .page-title { font-size: 16px; font-weight: 500; color: var(--text); }
+    .case-desc { color: var(--muted); font-size: 12px; margin-bottom: 18px; }
     .form-card { margin-bottom: 18px; margin-top: 14px; }
     .form-body { padding: 16px; }
-    .field { margin-bottom: 12px; label { display: block; font-size: 11px; color: #6b7c8f; margin-bottom: 5px; } }
+    .field { margin-bottom: 12px; label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 5px; } }
     .actions { display: flex; gap: 8px; }
-    .empty { padding: 16px; color: #6b7c8f; font-size: 12px; }
+    .empty { padding: 16px; color: var(--muted); font-size: 12px; }
   `]
 })
 export class CaseDetailComponent implements OnInit, OnDestroy {

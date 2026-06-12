@@ -56,21 +56,21 @@ import { Case } from '../../models/models';
   `,
   styles: [`
     .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-    .page-title { font-size: 16px; font-weight: 500; color: #c9d1d9; }
+    .page-title { font-size: 16px; font-weight: 500; color: var(--text); }
     .form-card { margin-bottom: 18px; }
     .form-body { padding: 16px; }
-    .field { margin-bottom: 12px; label { display: block; font-size: 11px; color: #6b7c8f; margin-bottom: 5px; } }
+    .field { margin-bottom: 12px; label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 5px; } }
     textarea.input { resize: none; }
     .actions { display: flex; gap: 8px; }
     .empty-state { text-align: center; padding: 60px 0; font-size: 32px; }
     .cases-list { display: flex; flex-direction: column; gap: 8px; }
-    .case-row { display: flex; align-items: center; gap: 14px; background: #0d1117; border: 0.5px solid #1e2d42; border-radius: 10px; padding: 14px 16px; transition: border-color .15s; &:hover { border-color: #22d3ee; } }
+    .case-row { display: flex; align-items: center; gap: 14px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; transition: border-color .15s; &:hover { border-color: var(--accent); } }
     .case-icon { font-size: 20px; }
     .case-info { flex: 1; min-width: 0; }
-    .case-name { color: #c9d1d9; font-size: 13px; font-weight: 500; }
-    .case-desc { color: #4b5c70; font-size: 11px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .case-name { color: var(--text); font-size: 13px; font-weight: 500; }
+    .case-desc { color: var(--muted); font-size: 11px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .case-meta { text-align: right; }
-    .case-date { color: #3d4f62; font-size: 10px; margin-top: 4px; }
+    .case-date { color: var(--muted); font-size: 10px; margin-top: 4px; }
   `]
 })
 export class CasesComponent implements OnInit {

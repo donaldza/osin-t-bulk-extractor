@@ -13,16 +13,10 @@ export class AuthService {
   get token(): string | null { return localStorage.getItem('token'); }
   get isLoggedIn(): boolean { return !!this.token; }
 
-  login(email: string, password: string) {
-    const body = new URLSearchParams({ username: email, password });
+  login(username: string) {
     return this.http.post<{ access_token: string }>(
-      `${environment.apiUrl}/auth/login`, body.toString(),
-      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      `${environment.apiUrl}/auth/login`, { username }
     ).pipe(tap(r => localStorage.setItem('token', r.access_token)));
-  }
-
-  register(email: string, password: string) {
-    return this.http.post<User>(`${environment.apiUrl}/auth/register`, { email, password });
   }
 
   me() { return this.http.get<User>(`${environment.apiUrl}/auth/me`); }

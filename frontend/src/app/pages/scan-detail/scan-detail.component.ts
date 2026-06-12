@@ -87,7 +87,7 @@ type Tab = 'summary' | 'features' | 'histograms' | 'alerts';
                 <tr>
                   <td [style.color]="featureColor(f.feature_type)">{{ f.feature_type }}</td>
                   <td>{{ f.offset?.toLocaleString() ?? '—' }}</td>
-                  <td style="color:#c9d1d9; max-width:240px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ f.value }}</td>
+                  <td style="color:var(--text); max-width:240px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ f.value }}</td>
                   <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ f.context ?? '—' }}</td>
                 </tr>
               }
@@ -131,7 +131,7 @@ type Tab = 'summary' | 'features' | 'histograms' | 'alerts';
                 @for (a of alerts(); track a.id) {
                   <tr>
                     <td>{{ a.offset?.toLocaleString() ?? '—' }}</td>
-                    <td style="color:#f87171">{{ a.value }}</td>
+                    <td style="color:var(--danger)">{{ a.value }}</td>
                     <td>{{ a.context ?? '—' }}</td>
                   </tr>
                 }
@@ -143,22 +143,22 @@ type Tab = 'summary' | 'features' | 'histograms' | 'alerts';
     }
   `,
   styles: [`
-    .back-link { font-size: 12px; color: #4b5c70; display: inline-block; margin-bottom: 6px; &:hover { color: #c9d1d9; } }
+    .back-link { font-size: 12px; color: var(--muted); display: inline-block; margin-bottom: 6px; &:hover { color: var(--text); } }
     .scan-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
-    .page-title { font-size: 15px; font-weight: 500; color: #c9d1d9; }
-    .image-path { font-size: 10px; color: #3d4f62; margin-top: 3px; }
-    .progress-card { background: #0a1a2e; border: 0.5px solid #1e3a5f; border-radius: 9px; padding: 14px 16px; margin-bottom: 18px; }
-    .progress-labels { display: flex; justify-content: space-between; font-size: 11px; color: #60a5fa; margin-bottom: 8px; }
-    .progress-track { height: 6px; background: #141d2a; border-radius: 3px; overflow: hidden; }
-    .progress-fill { height: 100%; background: #3b82f6; border-radius: 3px; transition: width .5s; }
-    .progress-pct { font-size: 11px; color: #60a5fa; margin-top: 4px; display: block; }
-    .error-card { background: #1f0a0a; border: 0.5px solid #7f1d1d; border-radius: 9px; padding: 12px 16px; color: #f87171; font-size: 12px; margin-bottom: 18px; }
+    .page-title { font-size: 15px; font-weight: 500; color: var(--text); }
+    .image-path { font-size: 10px; color: var(--muted); margin-top: 3px; }
+    .progress-card { background: rgba(125, 211, 252, .1); border: 1px solid rgba(125, 211, 252, .3); border-radius: 9px; padding: 14px 16px; margin-bottom: 18px; }
+    .progress-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--accent-2); margin-bottom: 8px; }
+    .progress-track { height: 6px; background: rgba(148, 163, 184, .14); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-radius: 3px; transition: width .5s; }
+    .progress-pct { font-size: 11px; color: var(--accent-2); margin-top: 4px; display: block; }
+    .error-card { background: rgba(251, 113, 133, .12); border: 1px solid rgba(251, 113, 133, .34); border-radius: 9px; padding: 12px 16px; color: var(--danger); font-size: 12px; margin-bottom: 18px; }
     .meta-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 18px; }
-    .meta-card { background: #0d1117; border: 0.5px solid #1e2d42; border-radius: 8px; padding: 12px 14px; }
-    .meta-label { font-size: 10px; color: #4b5c70; text-transform: uppercase; margin-bottom: 6px; }
-    .meta-val { font-size: 18px; font-weight: 500; color: #22d3ee; }
-    .tabs { display: flex; border-bottom: 0.5px solid #1e2d42; margin-bottom: 16px; }
-    .tab-btn { padding: 8px 16px; font-size: 12px; font-family: inherit; border: none; border-bottom: 2px solid transparent; background: none; color: #4b5c70; cursor: pointer; &.active { color: #22d3ee; border-bottom-color: #22d3ee; } &:hover { color: #c9d1d9; } }
+    .meta-card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+    .meta-label { font-size: 10px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+    .meta-val { font-size: 18px; font-weight: 500; color: var(--accent); }
+    .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+    .tab-btn { padding: 8px 16px; font-size: 12px; font-family: inherit; border: none; border-bottom: 2px solid transparent; background: none; color: var(--muted); cursor: pointer; &.active { color: var(--accent); border-bottom-color: var(--accent); } &:hover { color: var(--text); } }
     .summary-bars { padding: 14px 16px; }
     .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
     .bar-label { width: 72px; font-size: 11px; color: #6b7c8f; text-align: right; flex-shrink: 0; }
